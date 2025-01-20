@@ -1,0 +1,32 @@
+version: 1.0
+workflows:
+  android-workflow:
+    name: Android Build
+    max_build_duration: 60
+    environment:
+      android_signing:
+        - keystore_path: "android/app/release.keystore"
+          keystore_password: "$KEYSTORE_PASSWORD"
+          key_alias: "$KEY_ALIAS"
+          key_password: "$KEY_PASSWORD"
+      groups:
+        - mobile_secrets
+      vars:
+        PACKAGE_NAME: "com.routetracking"
+        GOOGLE_MAPS_API_KEY: "$GOOGLE_MAPS_API_KEY"
+    scripts:
+      - name: Install dependencies
+        script: |
+          npm install
+      - name: Set up app signing
+        script: |
+          echo "$RELEASE_KEYSTORE" | base64 -d > android/app/release.keystore
+      - name: Set Google Maps API key
+        script: |
+          sed -i "s/YOUR_GOOGLE_MAPS_API_KEY/$GOOGLE_MAPS_API_KEY/" android/app/src/main/AndroidManifest.xml
+      - name: Build Android
+        script: |
+          cd android
+          ./gradlew assembleRelease
+    artifacts:
+      - android/app/build/outputs/**/*.apk
