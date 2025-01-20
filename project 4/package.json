@@ -1,20 +1,16 @@
 {
   "name": "route-tracking",
   "version": "1.0.0",
+  "private": true,
   "scripts": {
     "start": "node setup_env.js && npx react-native start",
     "android": "npx react-native run-android",
+    "build": "cd android && ./gradlew clean assembleRelease",
     "ios": "react-native run-ios",
     "test": "jest",
-    "lint": "eslint .",
-    "pod-install": "cd ios && pod install"
+    "lint": "eslint ."
   },
   "dependencies": {
-    "@react-native-community/cli": "^11.3.8",
-    "@react-native-community/cli-platform-android": "^11.3.8",
-    "@react-native-community/cli-platform-ios": "^11.3.8",
-    "@react-native/metro-config": "^0.73.5",
-    "metro-config": "^0.80.5",
     "@react-native-community/geolocation": "^3.1.0",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/stack": "^6.3.20",
@@ -33,6 +29,11 @@
     "zustand": "^4.5.0"
   },
   "devDependencies": {
+    "@react-native-community/cli": "^11.3.8",
+    "@react-native-community/cli-platform-android": "^11.3.8",
+    "@react-native-community/cli-platform-ios": "^11.3.8",
+    "@react-native/metro-config": "^0.73.5",
+    "metro-config": "^0.80.5",
     "@babel/core": "^7.20.0",
     "@babel/preset-env": "^7.20.0",
     "@babel/runtime": "^7.20.0",
